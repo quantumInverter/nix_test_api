@@ -12,18 +12,40 @@ gem 'rails', '~> 5.1.4'
 gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
+# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+gem 'rack-cors'
+# Use ActiveModel has_secure_password
+gem 'bcrypt', '~> 3.1.7'
+# Use ActiveModelSerializers to serialize JSON responses
+gem 'active_model_serializers', '~> 0.10.0.rc2'
+# Use Paperclip to add attachments to Models
+gem 'paperclip'
+# Use RailsAdmin to manage data of DB
+gem 'rails_admin'
+# Use JWT to auth
+gem 'jwt'
+# Use Faker to create fill db with sample data
+gem 'faker'
+# Use Will Paginate for pagination
+gem 'will_paginate'
+# Use DeviseTokenAuth to Authenticate Users though tokens
+gem 'devise_token_auth'
+# Use Oauth for Authentificaion with Google, Facebook, Twitter
+gem 'omniauth'
+# gem 'omniauth-twitter'
+# gem 'omniauth-facebook'
+# gem 'omniauth-google-oauth2'
+# Use Cancancan for roles and premissions
+# gem 'cancancan'
+
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
