@@ -1,41 +1,54 @@
 class Api::V1::QuestionsController < Api::V1::ApiController
+  skip_before_action :authenticate_request, only: [:index, :show]
   before_action :set_question, only: [:show, :update, :destroy]
 
   # GET /questions
   def index
-    @questions = Question.all
+    @questions = Question.paginate(page: params[:page], per_page: params[:per_page])
 
-    render json: @questions
+    render_json @questions, QuestionsSerializer
   end
 
   # GET /questions/1
   def show
-    render json: @question
+    render_json(
+        @question,
+        QuestionSerializer,
+        200,
+        current_user
+    )
   end
 
   # POST /questions
   def create
     @question = Question.new(question_params)
+    @question.user = current_user
+    @question.all_tags = params[:tags]
 
     if @question.save
-      render json: @question, status: :created, location: @question
+      render_json @question
     else
-      render json: @question.errors, status: :unprocessable_entity
+      render_validation_errors @question.errors, 422
     end
   end
 
   # PATCH/PUT /questions/1
   def update
     if @question.update(question_params)
-      render json: @question
+      render_json(
+          @question,
+          QuestionSerializer,
+          200,
+          current_user
+      )
     else
-      render json: @question.errors, status: :unprocessable_entity
+      render_validation_errors @question.errors, 422
     end
   end
 
   # DELETE /questions/1
   def destroy
-    @question.destroy
+    render_responce
   end
 
   private
@@ -46,6 +59,6 @@ class Api::V1::QuestionsController < Api::V1::ApiController
 
     # Only allow a trusted parameter "white list" through.
     def question_params
-      params.fetch(:question, {})
+      params.permit(:title, :content)
     end
 end

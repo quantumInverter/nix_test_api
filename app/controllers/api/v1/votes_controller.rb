@@ -1,41 +1,23 @@
 class Api::V1::VotesController < Api::V1::ApiController
-  before_action :set_vote, only: [:show, :update, :destroy]
-
-  # GET /votes
-  def index
-    @votes = Vote.all
-
-    render json: @votes
-  end
-
-  # GET /votes/1
-  def show
-    render json: @vote
-  end
+  before_action :set_vote, only: :update
 
   # POST /votes
   def create
     @vote = Vote.new(vote_params)
+    @vote.user = current_user
 
-    if @vote.save
-      render json: @vote, status: :created, location: @vote
-    else
-      render json: @vote.errors, status: :unprocessable_entity
+    if params[:comment_id] && Comment.exists?(params[:comment_id])
+      @vote.votable = Comment.find(params[:comment_id])
+    elsif Question.exists?(params[:question_id])
+      @vote.votable = Question.find(params[:question_id])
     end
+
+    render_json @vote.votable if @vote.save
   end
 
   # PATCH/PUT /votes/1
   def update
-    if @vote.update(vote_params)
-      render json: @vote
-    else
-      render json: @vote.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /votes/1
-  def destroy
-    @vote.destroy
+    render_json @vote.votable if @vote.update(vote_params)
   end
 
   private
@@ -46,6 +28,6 @@ class Api::V1::VotesController < Api::V1::ApiController
 
     # Only allow a trusted parameter "white list" through.
     def vote_params
-      params.fetch(:vote, {})
+      params.permit(:rating)
     end
 end

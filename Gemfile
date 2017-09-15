@@ -23,13 +23,13 @@ gem 'paperclip'
 # Use RailsAdmin to manage data of DB
 gem 'rails_admin'
 # Use JWT to auth
-gem 'jwt'
+gem 'jwt', '~> 1.5.6'
+# Use Simple Command
+gem 'simple_command'
 # Use Faker to create fill db with sample data
 gem 'faker'
 # Use Will Paginate for pagination
 gem 'will_paginate'
-# Use DeviseTokenAuth to Authenticate Users though tokens
-gem 'devise_token_auth'
 # Use Oauth for Authentificaion with Google, Facebook, Twitter
 gem 'omniauth'
 # gem 'omniauth-twitter'

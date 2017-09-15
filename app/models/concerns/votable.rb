@@ -8,4 +8,8 @@ module Votable
   def rating
     votes.sum(:rating)
   end
+
+  def voted_by(user)
+    Vote.where(user: user, votable: self).first
+  end
 end
