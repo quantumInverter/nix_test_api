@@ -31,5 +31,6 @@ module NixTestApi
     config.api_only = true
     config.autoload_paths << Rails.root.join('lib')
     config.autoload_paths << Rails.root.join('app', 'policies', '*.rb')
+    config.middleware.use Rack::MethodOverride
   end
 end

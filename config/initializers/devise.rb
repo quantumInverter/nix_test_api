@@ -6,7 +6,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '447f873250e0831da7d77b738081ef8e3dfa87ea502adeac41ce2d5227e64ea61b4f6cca6155adf1d737f1eae0ad8aa45bdc430462c8dbdd2a628853411561ca'
+  # config.secret_key = '7dc3dfdd45108f8481c3fd7bd43c01139a8ebee3f7ff7c4f2c8e0a6bd25460f11e374b11828e84ebced02bed811f3d7361cfa07488b7a8aea4e93552105a8965'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -108,7 +108,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '31673e0f1c17e187bf29b42e61465e87de41144a32bdd482ea30d5b10476786411b88aea86a9d89306b74a28aeb4f9e91ce3ba685b5f9dd2e6a636f59eb316e2'
+  # config.pepper = 'b31ac8e033a870cd1f057822d609c886537c8d8ebc58ec15aa390fb7d82474f728a4f4167bdc6530f9f2ad435243553eb1fd0c959778cd5bffebe6824a4d847d'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -256,14 +256,10 @@ Devise.setup do |config|
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
   #
-  config.warden do |manager|
-    # Registering your new Strategy
-    manager.strategies.add(:jwt, Devise::Strategies::JsonWebToken)
-
-    # Adding the new JWT Strategy to the top of Warden's list,
-    # Scoped by what Devise would scope (typically :user)
-    manager.default_strategies(scope: :user).unshift :jwt
-  end
+  # config.warden do |manager|
+  #   manager.intercept_401 = false
+  #   manager.default_strategies(scope: :user).unshift :some_external_strategy
+  # end
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine

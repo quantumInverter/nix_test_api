@@ -21,17 +21,18 @@ gem 'active_model_serializers', '~> 0.10.0.rc2'
 # Use Paperclip to add attachments to Models
 gem 'paperclip'
 # Use RailsAdmin to manage data of DB
-gem 'rails_admin'
+gem 'rails_admin', '1.1.0'
+gem 'erubis'
 # Use JWT to auth
 gem 'jwt', '~> 1.5.6'
 # Use Deivse for Authorization
 gem 'devise'
+# Use Simple Command
+gem 'simple_command'
 # Use Faker to create fill db with sample data
 gem 'faker'
 # Use Will Paginate for pagination
 gem 'will_paginate'
-# Use Foreman to run React.js and rails server
-gem 'foreman'
 # Use Oauth for Authentificaion with Google, Facebook, Twitter
 gem 'omniauth'
 # gem 'omniauth-twitter'

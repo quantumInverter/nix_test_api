@@ -2,8 +2,8 @@ class User < ApplicationRecord
   ROLES = ['User', 'Moderator', 'Admin'].freeze
 
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable
+  # :confirmable, :lockable, :timeoutable and
+  devise :recoverable, :omniauthable
 
   has_many :votes, dependent: :destroy
   has_many :questions, dependent: :destroy
@@ -27,4 +27,6 @@ class User < ApplicationRecord
   def owner_of?(something)
     id == something.user_id
   end
+
+  has_secure_password
 end
