@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  include Pundit
   include Extensions::Renderer
 
   def not_found

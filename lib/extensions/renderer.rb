@@ -43,7 +43,7 @@ module Extensions::Renderer
 
   protected
 
-    def render_each(render_data, serializer, scope)
+    def render_each(render_data, serializer, scope = nil)
       ActiveModelSerializers::SerializableResource.new(
           render_data,
           each_serializer: serializer,

@@ -1,3 +1,6 @@
 class Tag < ApplicationRecord
-  has_and_belongs_to_many :questions
+
+  default_scope { order(questions_count: :desc) }
+
+  has_and_belongs_to_many :questions, counter_cache: true
 end

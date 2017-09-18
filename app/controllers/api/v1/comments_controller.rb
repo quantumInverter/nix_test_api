@@ -28,6 +28,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
 
   # PATCH/PUT /comments/1
   def update
+    authorize @comment
     if @comment.update(comment_params)
       render_json(
           @comment,
@@ -42,6 +43,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
 
   # DELETE /comments/1
   def destroy
+    authorize @comment
     render_json(
         @comments,
         CommentSerializer,

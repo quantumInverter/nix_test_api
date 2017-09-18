@@ -24,20 +24,21 @@ gem 'paperclip'
 gem 'rails_admin'
 # Use JWT to auth
 gem 'jwt', '~> 1.5.6'
-# Use Simple Command
-gem 'simple_command'
+# Use Deivse for Authorization
+gem 'devise'
 # Use Faker to create fill db with sample data
 gem 'faker'
 # Use Will Paginate for pagination
 gem 'will_paginate'
+# Use Foreman to run React.js and rails server
+gem 'foreman'
 # Use Oauth for Authentificaion with Google, Facebook, Twitter
 gem 'omniauth'
 # gem 'omniauth-twitter'
 # gem 'omniauth-facebook'
 # gem 'omniauth-google-oauth2'
-# Use Cancancan for roles and premissions
-# gem 'cancancan'
-
+# Use Pundit for roles and premissions
+gem 'pundit'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'

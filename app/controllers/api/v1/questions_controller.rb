@@ -1,10 +1,15 @@
 class Api::V1::QuestionsController < Api::V1::ApiController
-  skip_before_action :authenticate_request, only: [:index, :show]
-  before_action :set_question, only: [:show, :update, :destroy]
+  skip_before_action :authenticate_user!, only: [:index, :show]
+  before_action :set_question, except: [:index, :create]
+  before_action :set_tag, only: :index
 
   # GET /questions
   def index
-    @questions = Question.paginate(page: params[:page], per_page: params[:per_page])
+    if @tag
+      @questions = @tag.questions.paginate(page: params[:page], per_page: params[:per_page])
+    else
+      @questions = Question.paginate(page: params[:page], per_page: params[:per_page])
+    end
 
     render_json @questions, QuestionsSerializer
   end
@@ -34,6 +39,7 @@ class Api::V1::QuestionsController < Api::V1::ApiController
 
   # PATCH/PUT /questions/1
   def update
+    authorize @question
     if @question.update(question_params)
       render_json(
           @question,
@@ -48,6 +54,7 @@ class Api::V1::QuestionsController < Api::V1::ApiController
 
   # DELETE /questions/1
   def destroy
+    authorize @question
     render_responce
   end
 

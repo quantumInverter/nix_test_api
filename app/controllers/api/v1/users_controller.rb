@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::V1::ApiController
-  skip_before_action :authenticate_request, only: :create
+  skip_before_action :authenticate_user!, only: :create
   before_action :set_user, only: [:show, :update, :destroy]
 
   # GET /users/1
@@ -27,6 +27,7 @@ class Api::V1::UsersController < Api::V1::ApiController
 
   # PATCH/PUT /users/1
   def update
+    authorize @user
     if @user.update(user_params)
       render_json @user, UserSerializer
     else
@@ -36,6 +37,7 @@ class Api::V1::UsersController < Api::V1::ApiController
 
   # DELETE /users/1
   def destroy
+    authorize @user
     render_responce 'success'
   end
 

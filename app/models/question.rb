@@ -4,7 +4,7 @@ class Question < ApplicationRecord
   default_scope { order(created_at: :desc) }
 
   belongs_to :user
-  has_and_belongs_to_many :tags
+  has_and_belongs_to_many :tags, counter_cache: true
   has_many :comments, dependent: :destroy
 
   validates :title, :content, length: { minimum: 1 }
@@ -21,7 +21,7 @@ class Question < ApplicationRecord
   end
 
   def all_tags
-    self.tags.pluck(:name)
+    self.tags
   end
 
   private

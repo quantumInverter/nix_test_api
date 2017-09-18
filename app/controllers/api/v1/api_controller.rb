@@ -1,9 +1,8 @@
 class Api::V1::ApiController < ApplicationController
   attr_reader   :current_user
-  before_action :authenticate_request
+  before_action :authenticate_user!
 
   private
-
     # Use callbacks to share common setup or constraints between actions.
     def set_question
       if Question.exists?(params[:question_id])
@@ -13,8 +12,18 @@ class Api::V1::ApiController < ApplicationController
       end
     end
 
-    def authenticate_request
-      @current_user = AuthorizeApiRequest.call(request.headers).result
-      render_error(I18n.t(:unauthorized), 401) unless @current_user
+    # Use callbacks to share common setup or constraints between actions.
+    def set_tag
+      @tag = Tag.where(id: params[:tag]).first
+    end
+
+  protected
+
+    def authenticate_user!
+      if user_signed_in?
+        super
+      else
+        render_error(I18n.t(:forbidden), 404)
+      end
     end
 end
