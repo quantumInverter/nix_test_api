@@ -10,8 +10,9 @@ class Question < ApplicationRecord
   has_and_belongs_to_many :tags
   has_many :comments, dependent: :destroy
 
-  validates :title, :content, length: { minimum: 1 }
-  validate :tag_count
+  validates :title, :content, length: { minimum: 35, maximum: 200 }
+  validates :content, :content, length: { minimum: 200, maximum: 5000 }
+  validate  :tag_count
 
   def comments_count
     comments.size
