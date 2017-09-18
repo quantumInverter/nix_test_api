@@ -13,8 +13,16 @@ class User < ApplicationRecord
   has_many :questions, dependent: :destroy
   has_many :comments, dependent: :destroy
 
+  has_attached_file :avatar,
+                    :url => "/system/users/avatars/:user_id/:basename",
+                    :path => ":rails_root/public:url",
+                    :default_url => "/system/no-avatar.png",
+                    :default_path => ":rails_root/public:default_url",
+                    styles: { original: ["330x330#", :png] }
+
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
   validates :login, :email, uniqueness: { case_sensitive: false }
-  validates :login, length: { in: 2..20 }, format: { with: NAME_REGEX }
+  validates :login, length: { in: 2..20 }, format: { with: LOGIN_REGEX }
   validates :email, format: { with: EMAIL_REGEX }
   validates :password, length: { in: 6..32 }
 

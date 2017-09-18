@@ -31,3 +31,8 @@
 
 en:
   hello: "Hello world"
+  page_not_found: "Page not found"
+  forbidden: "Can't do that"
+  unprocessible_entity: "Invalid combination of email and password"
+  not_found: "Element not found"
+  unauthorized: "Can't go there"

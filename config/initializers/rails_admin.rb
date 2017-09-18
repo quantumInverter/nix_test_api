@@ -18,6 +18,7 @@ RailsAdmin.config do |config|
   config.model "User" do
     list do
       include_fields :id, :login, :email, :birth_date
+      field :avatar, :paperclip
       field :role_id do
         label "Role"
         pretty_value do
@@ -39,6 +40,7 @@ RailsAdmin.config do |config|
 
     show do
       fields :id, :login, :email
+      field :avatar, :paperclip
       field :role_id do
         label "Role"
         pretty_value do
@@ -51,12 +53,14 @@ RailsAdmin.config do |config|
 
     create do
       include_fields :login, :email, :role_id
+      field :avatar, :paperclip
       field :password
       include_fields :birth_date, :country, :city, :address
     end
 
     edit do
       include_fields :login, :email, :role_id
+      field :avatar, :paperclip
       field :password
       include_fields :birth_date, :country, :city, :address, :created_at, :updated_at
     end
