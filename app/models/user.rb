@@ -3,11 +3,13 @@ class User < ApplicationRecord
   LOGIN_REGEX = /\A[A-Za-z]+[.A-Za-z0-9_-]+[A-Za-z0-9]+\z/
   EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/
 
+  after_create :update_access_token!
   before_save :downcase_email
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and
-  devise :recoverable, :omniauthable
+  devise :database_authenticatable, :recoverable,
+         :validatable, :omniauthable
 
   has_many :votes, dependent: :destroy
   has_many :questions, dependent: :destroy
@@ -42,11 +44,21 @@ class User < ApplicationRecord
     id == something.user_id
   end
 
-  has_secure_password
-
   private
 
     def downcase_email
       self.email.downcase!
+    end
+
+    def update_access_token!
+      self.access_token = generate_access_token
+      save
+    end
+
+    def generate_access_token
+      loop do
+        token = "#{self.id}:#{Devise.friendly_token}"
+        break token unless User.where(access_token: token).first
+      end
     end
 end

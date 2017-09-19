@@ -1,5 +1,5 @@
 class Api::V1::QuestionsController < Api::V1::ApiController
-  skip_before_action :authenticate_request, only: [:index, :show]
+  skip_before_action :authenticate_user_from_token!, only: [:index, :show]
   before_action :set_question, except: [:index, :create]
   before_action :set_tag, only: :index
 

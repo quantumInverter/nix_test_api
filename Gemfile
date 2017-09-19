@@ -23,12 +23,8 @@ gem 'paperclip'
 # Use RailsAdmin to manage data of DB
 gem 'rails_admin', '1.1.0'
 gem 'erubis'
-# Use JWT to auth
-gem 'jwt', '~> 1.5.6'
 # Use Deivse for Authorization
 gem 'devise'
-# Use Simple Command
-gem 'simple_command'
 # Use Faker to create fill db with sample data
 gem 'faker'
 # Use Will Paginate for pagination
