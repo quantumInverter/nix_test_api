@@ -37,6 +37,9 @@ gem 'omniauth'
 # Use Pundit for roles and premissions
 gem 'pundit'
 
+gem 'webpacker'
+gem 'foreman'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
