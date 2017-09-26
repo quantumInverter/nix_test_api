@@ -5,7 +5,7 @@ RailsAdmin.config do |config|
   config.authorize_with do
     authenticate_or_request_with_http_basic('Authorization required') do |email, password|
       user = User.find_by_email(email) if email
-      if user && user.authenticate(password) && user.moderator?
+      if user && user.valid_password?(password) && user.moderator?
         config.included_models = %w(Question Comment Tag)
         config.included_models << 'User' if user.admin?
         user

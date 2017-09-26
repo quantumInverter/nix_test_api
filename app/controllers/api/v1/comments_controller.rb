@@ -1,4 +1,6 @@
 class Api::V1::CommentsController < Api::V1::ApiController
+  skip_before_action :authenticate_user_from_token!, only: :index
+  before_action :authenticate_user_from_token, only: :index
   before_action :set_question, except: :update
   before_action :set_comments, except: :update
   before_action :set_comment, only: [:update, :destroy]

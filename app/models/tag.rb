@@ -4,7 +4,6 @@ class Tag < ApplicationRecord
   default_scope { order(questions_count: :desc) }
 
   validates :name, uniqueness: { case_sensitive: false }, length: { in: 2..60 }
-
   has_and_belongs_to_many :questions
 
   private

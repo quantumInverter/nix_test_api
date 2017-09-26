@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      root to: 'questions#index'
+
       resource  :sign_in, only: [:create], controller: :sessions
       resources :users, except: :index
       resources :tags,  only:   :index

@@ -1,10 +1,12 @@
 class Api::V1::QuestionsController < Api::V1::ApiController
   skip_before_action :authenticate_user_from_token!, only: [:index, :show]
+  before_action :authenticate_user_from_token, only: [:index, :show]
   before_action :set_question, except: [:index, :create]
   before_action :set_tag, only: :index
 
   # GET /questions
   def index
+    params[:per_page] ||= 8
     if @tag
       @questions = @tag.questions.paginate(page: params[:page], per_page: params[:per_page])
     else

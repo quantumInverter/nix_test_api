@@ -1,5 +1,9 @@
 class QuestionSerializer < QuestionsSerializer
-  attributes :id, :content, :vote
+  attributes :id, :vote
+
+  def content
+    object.content
+  end
 
   def vote
     object.voted_by(scope) if scope

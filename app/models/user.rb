@@ -16,11 +16,11 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   has_attached_file :avatar,
-                    :url => "/system/users/avatars/:user_id/:basename",
+                    :url => "/system/users/avatars/:id/:basename.png",
                     :path => ":rails_root/public:url",
                     :default_url => "/system/no-avatar.png",
                     :default_path => ":rails_root/public:default_url",
-                    styles: { original: ["330x330#", :png] }
+                    styles: { original: ["220x220#", :png] }
 
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
   validates :login, :email, uniqueness: { case_sensitive: false }
@@ -42,6 +42,24 @@ class User < ApplicationRecord
 
   def owner_of?(something)
     id == something.user_id
+  end
+
+  def upvotes
+    votes.where(rating: 1).count
+  end
+
+  def downvotes
+    votes.where(rating: -1).count
+  end
+
+  def rating
+    questions_id = questions.pluck(:id)
+    comments_id = comments.pluck(:id)
+
+    questions_rating = Vote.where(votable_id: questions_id, votable_type: 'Question').where.not(user_id: id).sum(:rating)
+    comments_rating = Vote.where(votable_id: comments_id, votable_type: 'Comment').where.not(user_id: id).sum(:rating)
+
+    questions_rating + comments_rating
   end
 
   private

@@ -36,8 +36,7 @@ gem 'omniauth'
 # gem 'omniauth-google-oauth2'
 # Use Pundit for roles and premissions
 gem 'pundit'
-
-gem 'webpacker'
+# Use Foreman to start processes
 gem 'foreman'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

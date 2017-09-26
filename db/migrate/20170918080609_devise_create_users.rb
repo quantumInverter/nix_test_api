@@ -18,6 +18,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       t.string  :country
       t.string  :city
       t.string  :address
+      t.string  :about
       t.string  :access_token
       t.integer :role_id, null: false, default: 0
 

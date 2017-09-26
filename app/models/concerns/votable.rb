@@ -10,6 +10,7 @@ module Votable
   end
 
   def voted_by(user)
-    Vote.where(user: user, votable: self).first
+    vote = Vote.where(user: user, votable: self)
+    vote.first.rating if vote.any?
   end
 end

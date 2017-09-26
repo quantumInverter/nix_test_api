@@ -1,33 +1,25 @@
 class Api::V1::VotesController < Api::V1::ApiController
-  before_action :set_vote, only: :update
+  before_action :set_votable
 
   # POST /votes
   def create
-    @vote = Vote.new(vote_params)
-    @vote.user = current_user
+    vote = Vote.find_or_initialize_by(votable: @votable, user: current_user)
+    vote.rating = params[:rating]
 
-    if params[:comment_id] && Comment.exists?(params[:comment_id])
-      @vote.votable = Comment.find(params[:comment_id])
-    elsif Question.exists?(params[:question_id])
-      @vote.votable = Question.find(params[:question_id])
+    if vote.save
+      render_json vote, VoteSerializer
+    else
+      render_validation_errors vote.errors, 422
     end
-
-    render_json @vote.votable if @vote.save
-  end
-
-  # PATCH/PUT /votes/1
-  def update
-    render_json @vote.votable if @vote.update(vote_params)
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_vote
-      @vote = Vote.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def vote_params
-      params.permit(:rating)
+  def set_votable
+    if params[:comment_id] && Comment.exists?(params[:comment_id])
+      @votable = Comment.find(params[:comment_id])
+    elsif params[:question_id] && Question.exists?(params[:question_id])
+      @votable = Question.find(params[:question_id])
     end
+  end
 end

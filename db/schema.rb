@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20170918123439) do
     t.string "country"
     t.string "city"
     t.string "address"
+    t.string "about"
     t.string "access_token"
     t.integer "role_id", default: 0, null: false
     t.datetime "created_at", null: false
